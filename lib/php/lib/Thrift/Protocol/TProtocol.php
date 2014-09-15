@@ -337,4 +337,8 @@ abstract class TProtocol {
                                    TProtocolException::INVALID_DATA);
     }
   }
+
+  protected function isLittleEndian() {
+    return unpack('S',"\x01\x00")[1] === 1;
+  }
 }
