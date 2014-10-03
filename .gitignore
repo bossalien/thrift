@@ -36,6 +36,7 @@ test-driver
 .sonar
 .DS_Store
 .svn
+.vagrant
 
 /contrib/.vagrant/
 /aclocal/libtool.m4
@@ -207,6 +208,7 @@ test-driver
 /stamp-h1
 /test/status.html
 /test/c_glib/test_client
+/test/c_glib/test_server
 /test/cpp/StressTest
 /test/cpp/StressTestNonBlocking
 /test/cpp/TestClient
@@ -215,6 +217,8 @@ test-driver
 /lib/go/test/ThriftTest.thrift
 /test/log/
 /test/test.log
+/test/erl/.eunit/
+/test/erl/.generated
 /test/go/ThriftTest.thrift
 /test/go/gopath
 /test/go/pkg/
@@ -228,6 +232,7 @@ test-driver
 /tutorial/cpp/TutorialClient
 /tutorial/cpp/TutorialServer
 /tutorial/c_glib/tutorial_client
+/tutorial/c_glib/tutorial_server
 /tutorial/delphi/*.dsk
 /tutorial/delphi/*.local
 /tutorial/delphi/DelphiClient/dcu
