@@ -16,18 +16,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-module thrift.internal.traits;
-
-import std.traits;
 
 /**
- * Adds »nothrow« to the type of the passed function pointer/delegate, if it
- * is not already present.
- *
- * Technically, assumeNothrow just performs a cast, but using it has the
- * advantage of being explicitly about the operation that is performed.
+ * This Thrift file can be included by other Thrift files that want to share
+ * these definitions.
  */
-auto assumeNothrow(T)(T t) if (isFunctionPointer!T || isDelegate!T) {
-  enum attrs = functionAttributes!T | FunctionAttribute.nothrow_;
-  return cast(SetFunctionAttributes!(T, functionLinkage!T, attrs)) t;
+
+namespace cpp shared
+namespace java shared
+namespace perl shared
+
+struct SharedStruct {
+  1: i32 key
+  2: string value
+}
+
+service SharedService {
+  SharedStruct getStruct(1: i32 key)
 }

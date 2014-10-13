@@ -133,6 +133,7 @@ THRIFT_ADD_COMPILER(hs      "Enable compiler for Haskell" ON)
 THRIFT_ADD_COMPILER(xsd     "Enable compiler for XSD" ON)
 THRIFT_ADD_COMPILER(html    "Enable compiler for HTML Documentation" ON)
 THRIFT_ADD_COMPILER(js      "Enable compiler for JavaScript" ON)
+THRIFT_ADD_COMPILER(json    "Enable compiler for JSON" ON)
 THRIFT_ADD_COMPILER(javame  "Enable compiler for Java ME" ON)
 THRIFT_ADD_COMPILER(delphi  "Enable compiler for Delphi" ON)
 THRIFT_ADD_COMPILER(go      "Enable compiler for Go" ON)
@@ -151,8 +152,13 @@ install(TARGETS thrift DESTINATION bin)
 
 # mingw32 does not support c++0x features
 if(NOT CMAKE_SYSTEM_NAME STREQUAL "Windows")
-set(CMAKE_CXX_FLAGS "-std=c++0x")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 endif()
+
+if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
+endif()
+
 
 # create a Distribution Package for the Apache Thrift Compiler
 set(CPACK_PACKAGE_NAME "Apache Thrift")
