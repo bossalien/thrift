@@ -78,6 +78,8 @@ extern t_type* g_type_i16;
 extern t_type* g_type_i32;
 extern t_type* g_type_i64;
 extern t_type* g_type_double;
+extern t_type* g_type_decimal;
+extern t_type* g_type_float;
 
 /**
  * The scope that we are currently parsing into

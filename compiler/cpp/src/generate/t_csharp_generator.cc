@@ -2182,6 +2182,12 @@ void t_csharp_generator::generate_deserialize_field(ofstream& out, t_field* tfie
         case t_base_type::TYPE_DOUBLE:
           out << "ReadDouble();";
           break;
+      case t_base_type::TYPE_FLOAT:
+          out << "ReadFloat();";
+          break;
+      case t_base_type::TYPE_DECIMAL:
+          out << "ReadDecimal();";
+          break;
         default:
           throw "compiler error: no C# name for base type " + t_base_type::t_base_name(tbase);
       }
@@ -2357,6 +2363,12 @@ void t_csharp_generator::generate_deserialize_list_element(ofstream& out, t_list
         case t_base_type::TYPE_DOUBLE:
           out << "WriteDouble(" << nullable_name << ");";
           break;
+          case t_base_type::TYPE_FLOAT:
+              out << "WriteFloat(" << nullable_name << ");";
+              break;
+          case t_base_type::TYPE_DECIMAL:
+              out << "WriteDecimal(" << nullable_name << ");";
+              break;
         default:
           throw "compiler error: no C# name for base type " + t_base_type::t_base_name(tbase);
       }
@@ -2677,6 +2689,10 @@ string t_csharp_generator::base_type_name(t_base_type* tbase, bool in_container,
       return "long" + postfix;
     case t_base_type::TYPE_DOUBLE:
       return "double" + postfix;
+      case t_base_type::TYPE_FLOAT:
+          return "float" + postfix;
+      case t_base_type::TYPE_DECIMAL:
+          return "decimal" + postfix;
     default:
       throw "compiler error: no C# name for base type " + t_base_type::t_base_name(tbase->get_base());
   }
@@ -2788,6 +2804,10 @@ string t_csharp_generator::type_to_enum(t_type* type) {
         return "TType.I64";
       case t_base_type::TYPE_DOUBLE:
         return "TType.Double";
+        case t_base_type::TYPE_FLOAT:
+            return "TType.Float";
+        case t_base_type::TYPE_DECIMAL:
+            return "TType.Decimal";
     }
   } else if (type->is_enum()) {
     return "TType.I32";

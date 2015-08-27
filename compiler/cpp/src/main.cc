@@ -75,6 +75,8 @@ t_type* g_type_i16;
 t_type* g_type_i32;
 t_type* g_type_i64;
 t_type* g_type_double;
+t_type* g_type_decimal;
+t_type* g_type_float;
 
 /**
  * Global scope
@@ -1197,6 +1199,9 @@ int main(int argc, char** argv) {
   g_type_i64    = new t_base_type("i64",    t_base_type::TYPE_I64);
   g_type_double = new t_base_type("double", t_base_type::TYPE_DOUBLE);
 
+  g_type_float = new t_base_type("float", t_base_type::TYPE_FLOAT);
+  g_type_decimal = new t_base_type("decimal", t_base_type::TYPE_DECIMAL);
+    
   // Parse it!
   parse(program, NULL);
 
@@ -1223,6 +1228,8 @@ int main(int argc, char** argv) {
   delete g_type_i32;
   delete g_type_i64;
   delete g_type_double;
+  delete g_type_float;
+  delete g_type_decimal;
 
   // Finished
   return 0;

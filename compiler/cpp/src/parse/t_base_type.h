@@ -41,7 +41,9 @@ class t_base_type : public t_type {
     TYPE_I16,
     TYPE_I32,
     TYPE_I64,
-    TYPE_DOUBLE
+    TYPE_DOUBLE,
+    TYPE_FLOAT,
+    TYPE_DECIMAL
   };
 
   t_base_type(std::string name, t_base base) :

@@ -145,6 +145,8 @@ const int struct_is_union = 1;
 %token tok_i32
 %token tok_i64
 %token tok_double
+%token tok_decimal
+%token tok_float
 
 /**
  * Complex type keywords
@@ -1194,6 +1196,16 @@ SimpleBaseType:
       pdebug("BaseType -> tok_double");
       $$ = g_type_double;
     }
+| tok_decimal
+{
+pdebug("BaseType -> tok_decimal");
+$$ = g_type_decimal;
+}
+| tok_float
+{
+pdebug("BaseType -> tok_float");
+$$ = g_type_float;
+}
 
 ContainerType: SimpleContainerType TypeAnnotations
     {
