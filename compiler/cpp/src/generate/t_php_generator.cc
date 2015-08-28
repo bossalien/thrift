@@ -1962,6 +1962,16 @@ void t_php_generator::generate_deserialize_field(ofstream &out,
               indent() << "$arr = unpack('d', strrev(" << itrans << "->readAll(8)));" << endl <<
               indent() << "$" << name << " = $arr[1];" << endl;
             break;
+              case t_base_type::TYPE_FLOAT:
+                  out <<
+                  indent() << "$arr = unpack('d', strrev(" << itrans << "->readAll(8)));" << endl <<
+                  indent() << "$" << name << " = $arr[1];" << endl;
+                  break;
+              case t_base_type::TYPE_DECIMAL:
+                  out <<
+                  indent() << "$arr = unpack('d', strrev(" << itrans << "->readAll(8)));" << endl <<
+                  indent() << "$" << name << " = $arr[1];" << endl;
+                  break;
           default:
             throw "compiler error: no PHP name for base type " + t_base_type::t_base_name(tbase) + tfield->get_name();
           }
@@ -2006,6 +2016,12 @@ void t_php_generator::generate_deserialize_field(ofstream &out,
             break;
           case t_base_type::TYPE_DOUBLE:
             out << "readDouble($" << name << ");";
+            break;
+          case t_base_type::TYPE_FLOAT:
+            out << "readFloat($" << name << ");";
+            break;
+          case t_base_type::TYPE_DECIMAL:
+            out << "readDecimal($" << name << ");";
             break;
           default:
             throw "compiler error: no PHP name for base type " + t_base_type::t_base_name(tbase);
@@ -2243,6 +2259,14 @@ void t_php_generator::generate_serialize_field(ofstream &out,
           out <<
             indent() << "$output .= strrev(pack('d', $" << name << "));" << endl;
           break;
+            case t_base_type::TYPE_FLOAT:
+                out <<
+                indent() << "$output .= strrev(pack('d', $" << name << "));" << endl;
+                break;
+            case t_base_type::TYPE_DECIMAL:
+                out <<
+                indent() << "$output .= strrev(pack('d', $" << name << "));" << endl;
+                break;
         default:
           throw "compiler error: no PHP name for base type " + t_base_type::t_base_name(tbase);
         }
@@ -2282,6 +2306,12 @@ void t_php_generator::generate_serialize_field(ofstream &out,
           break;
         case t_base_type::TYPE_DOUBLE:
           out << "writeDouble($" << name << ");";
+          break;
+        case t_base_type::TYPE_FLOAT:
+          out << "writeFloat($" << name << ");";
+          break;
+        case t_base_type::TYPE_DECIMAL:
+          out << "writeDecimal($" << name << ");";
           break;
         default:
           throw "compiler error: no PHP name for base type " + t_base_type::t_base_name(tbase);
@@ -2682,6 +2712,10 @@ string t_php_generator ::type_to_enum(t_type* type) {
       return "TType::I64";
     case t_base_type::TYPE_DOUBLE:
       return "TType::DOUBLE";
+        case t_base_type::TYPE_FLOAT:
+            return "TType::FLOAT";
+        case t_base_type::TYPE_DECIMAL:
+            return "TType::DECIMAL";
     }
   } else if (type->is_enum()) {
     return "TType::I32";
@@ -2723,6 +2757,10 @@ string t_php_generator ::type_to_phpdoc(t_type* type) {
       return "int";
     case t_base_type::TYPE_DOUBLE:
       return "double";
+        case t_base_type::TYPE_FLOAT:
+            return "float";
+        case t_base_type::TYPE_DECIMAL:
+            return "decimal";
     }
   } else if (type->is_enum()) {
     return "int";

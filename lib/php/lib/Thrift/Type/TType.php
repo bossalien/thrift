@@ -43,4 +43,6 @@ class TType {
   const LST    = 15;    // N.B. cannot use LIST keyword in PHP!
   const UTF8   = 16;
   const UTF16  = 17;
+  const FLOAT  = 18;
+  const DECIMAL= 19;
 }
