@@ -2182,6 +2182,12 @@ void t_py_generator::generate_deserialize_field(ofstream &out,
       case t_base_type::TYPE_DOUBLE:
         out << "readDouble();";
         break;
+          case t_base_type::TYPE_FLOAT:
+              out << "readFloat();";
+              break;
+          case t_base_type::TYPE_DECIMAL:
+              out << "readDecimal();";
+              break;
       default:
         throw "compiler error: no Python name for base type " + t_base_type::t_base_name(tbase);
       }
@@ -2380,6 +2386,12 @@ void t_py_generator::generate_serialize_field(ofstream &out,
       case t_base_type::TYPE_DOUBLE:
         out << "writeDouble(" << name << ")";
         break;
+          case t_base_type::TYPE_FLOAT:
+              out << "writeFloat(" << name << ")";
+              break;
+          case t_base_type::TYPE_DECIMAL:
+              out << "writeDecimal(" << name << ")";
+              break;
       default:
         throw "compiler error: no Python name for base type " + t_base_type::t_base_name(tbase);
       }
@@ -2698,6 +2710,10 @@ string t_py_generator::type_to_enum(t_type* type) {
       return "TType.I64";
     case t_base_type::TYPE_DOUBLE:
       return "TType.DOUBLE";
+        case t_base_type::TYPE_FLOAT:
+            return "TType.FLOAT";
+        case t_base_type::TYPE_DECIMAL:
+            return "TType.DECIMAL";
     }
   } else if (type->is_enum()) {
     return "TType.I32";
