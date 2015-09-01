@@ -38,6 +38,8 @@ class TType:
   LIST   = 15
   UTF8   = 16
   UTF16  = 17
+  FLOAT  = 18
+  DECIMAL = 19
 
   _VALUES_TO_NAMES = ('STOP',
                       'VOID',

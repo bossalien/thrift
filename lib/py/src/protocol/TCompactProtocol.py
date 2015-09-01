@@ -91,6 +91,8 @@ class CompactType:
   SET = 0x0A
   MAP = 0x0B
   STRUCT = 0x0C
+  FLOAT = 0x0D
+  DECIMAL = 0x0E
 
 CTYPES = {TType.STOP: CompactType.STOP,
           TType.BOOL: CompactType.TRUE,  # used for collection
@@ -103,7 +105,9 @@ CTYPES = {TType.STOP: CompactType.STOP,
           TType.STRUCT: CompactType.STRUCT,
           TType.LIST: CompactType.LIST,
           TType.SET: CompactType.SET,
-          TType.MAP: CompactType.MAP
+          TType.MAP: CompactType.MAP,
+          TType.FLOAT: CompactType.FLOAT,
+          TType.DECIMAL: CompactType.DECIMAL
           }
 
 TTYPES = {}
@@ -253,6 +257,14 @@ class TCompactProtocol(TProtocolBase):
   @writer
   def writeDouble(self, dub):
     self.trans.write(pack('<d', dub))
+
+  @writer
+  def writeFloat(self, fl):
+    self.trans.write(pack('<d', fl))
+
+  @writer
+  def writeDecimal(self, dec):
+    self.trans.write(pack('<d', dec))
 
   def __writeString(self, s):
     self.__writeSize(len(s))

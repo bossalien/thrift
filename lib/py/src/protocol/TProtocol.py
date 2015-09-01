@@ -99,6 +99,12 @@ class TProtocolBase:
   def writeDouble(self, dub):
     pass
 
+  def writeFloat(self, fl):
+    pass
+
+  def writeDecimal(self, dec):
+    pass
+
   def writeString(self, str_val):
     pass
 
@@ -156,6 +162,12 @@ class TProtocolBase:
   def readDouble(self):
     pass
 
+  def readFloat(self):
+    pass
+
+  def readDecimal(self):
+    pass
+
   def readString(self):
     pass
 
@@ -174,6 +186,10 @@ class TProtocolBase:
       self.readI64()
     elif ttype == TType.DOUBLE:
       self.readDouble()
+    elif ttype == TType.FLOAT:
+      self.readFloat()
+    elif ttype == TType.DECIMAL:
+      self.readDecimal()
     elif ttype == TType.STRING:
       self.readString()
     elif ttype == TType.STRUCT:
@@ -221,7 +237,9 @@ class TProtocolBase:
        ('readContainerSet', 'writeContainerSet', True),  # 14 TType.SET
        ('readContainerList', 'writeContainerList', True),  # 15 TType.LIST
        (None, None, False),  # 16 TType.UTF8 # TODO: handle utf8 types?
-       (None, None, False)  # 17 TType.UTF16 # TODO: handle utf16 types?
+       (None, None, False),  # 17 TType.UTF16 # TODO: handle utf16 types?
+       ('readFloat', 'writeFloat', False),  # 18 TType.FLOAT
+       ('readDecimal', 'writeDecimal', False)  # 19 TType.FLOAT
       )
 
   def readFieldByTType(self, ttype, spec):

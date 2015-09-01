@@ -469,6 +469,12 @@ class TJSONProtocol(TJSONProtocolBase):
   def writeDouble(self, dbl):
     self.writeJSONNumber(dbl)
 
+  def writeFloat(self, fl):
+    self.writeJSONNumber(fl)
+
+  def writeDecimal(self, dec):
+    self.writeJSONNumber(dec)
+
   def writeString(self, string):
     self.writeJSONString(string)
     
@@ -556,6 +562,12 @@ class TSimpleJSONProtocol(TJSONProtocolBase):
     def writeDouble(self, dbl):
         self.writeJSONNumber(dbl)
     
+    def writeFloat(self, fl):
+        self.writeJSONNumber(fl)
+
+    def writeDecimal(self, dec):
+        self.writeJSONNumber(dec)
+
     def writeString(self, string):
         self.writeJSONString(string)
       
