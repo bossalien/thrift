@@ -35,7 +35,7 @@ namespace Thrift.Protocol
         private static TStruct ANONYMOUS_STRUCT = new TStruct("");
         private static TField TSTOP = new TField("", TType.Stop, (short)0);
 
-        private static byte[] ttypeToCompactType = new byte[16];
+        private static byte[] ttypeToCompactType = new byte[18];
 
         private const byte PROTOCOL_ID = 0x82;
         private const byte VERSION = 1;
@@ -62,6 +62,8 @@ namespace Thrift.Protocol
             public const byte SET = 0x0A;
             public const byte MAP = 0x0B;
             public const byte STRUCT = 0x0C;
+			public const byte FLOAT = 0x0D;
+			public const byte DECIMAL = 0x0E;
         }
 
         /**
@@ -117,6 +119,8 @@ namespace Thrift.Protocol
             ttypeToCompactType[(int)TType.Set] = Types.SET;
             ttypeToCompactType[(int)TType.Map] = Types.MAP;
             ttypeToCompactType[(int)TType.Struct] = Types.STRUCT;
+			ttypeToCompactType[(int)TType.Float] = Types.FLOAT;
+			ttypeToCompactType[(int)TType.Decimal] = Types.DECIMAL;
         }
 
         public void reset()
@@ -381,6 +385,17 @@ namespace Thrift.Protocol
             WriteVarint32((uint)length);
             trans.Write(buf, offset, length);
         }
+
+		public override void WriteFloat(float f)
+		{
+			throw new NotImplementedException();
+		}
+
+		public override void WriteDecimal(decimal d)
+		{
+			throw new NotImplementedException();
+		}
+
 
         //
         // These methods are called by structs, but don't actually have any wire
@@ -701,8 +716,18 @@ namespace Thrift.Protocol
             return buf;
         }
 
-        //
-        // These methods are here for the struct to call, but don't have any wire
+		public override float ReadFloat()
+		{
+			return (float)ReadDouble();
+		}
+
+		public override decimal ReadDecimal()
+		{
+			return (decimal)ReadDouble();
+		}
+
+		//
+        // These methods are here for the struct to call, but don't have any wire 
         // encoding.
         //
         public override void ReadMessageEnd() { }
@@ -825,6 +850,10 @@ namespace Thrift.Protocol
                     return TType.I64;
                 case Types.DOUBLE:
                     return TType.Double;
+				case Types.FLOAT:
+					return TType.Float;
+				case Types.DECIMAL:
+					return TType.Decimal;
                 case Types.BINARY:
                     return TType.String;
                 case Types.LIST:
